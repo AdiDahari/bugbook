@@ -1,4 +1,4 @@
-import { Lucia, Session, User } from "lucia";
+import { CookieAttributes, Lucia, Session, User } from "lucia";
 
 import { PrismaAdapter } from "@lucia-auth/adapter-prisma";
 import { cache } from "react";
