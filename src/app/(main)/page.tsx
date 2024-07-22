@@ -1,3 +1,4 @@
+import ForYouField from "./ForYouField";
 import { Loader2 } from "lucide-react";
 import Post from "@/components/posts/Post";
 import PostEditor from "@/components/posts/editor/PostEditor";
@@ -17,11 +18,7 @@ export default async function Home() {
     <main className="flex w-full min-w-0 gap-5">
       <div className="w-full min-w-0 space-y-5">
         <PostEditor />
-        <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
-          {posts.map((post) => (
-            <Post key={post.id} post={post} />
-          ))}
-        </Suspense>
+        <ForYouField />
       </div>
       <TrendsSidebar />
     </main>

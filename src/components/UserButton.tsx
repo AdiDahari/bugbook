@@ -25,6 +25,7 @@ import Link from "next/link";
 import UserAvatar from "./UserAvatar";
 import { cn } from "@/lib/utils";
 import { logOut } from "@/app/(auth)/actions";
+import { useQueryClient } from "@tanstack/react-query";
 import { useSession } from "@/app/(main)/SessionProvider";
 import { useTheme } from "next-themes";
 
@@ -33,9 +34,12 @@ interface UserButtonProps {
 }
 
 const UserButton = ({ className }: UserButtonProps) => {
+  const { user } = useSession();
+
   const { theme, setTheme } = useTheme();
 
-  const { user } = useSession();
+  const queryClient = useQueryClient();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -87,6 +91,7 @@ const UserButton = ({ className }: UserButtonProps) => {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={() => {
+            queryClient.clear();
             logOut();
           }}
           className="text-red-500"
