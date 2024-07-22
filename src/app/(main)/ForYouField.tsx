@@ -3,6 +3,7 @@
 import { PostData, PostsPage } from "@/lib/types";
 
 import { Button } from "@/components/ui/button";
+import DeletePostDialog from "@/components/posts/DeletePostDialog";
 import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
 import { Loader2 } from "lucide-react";
 import Post from "@/components/posts/Post";
