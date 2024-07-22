@@ -12,17 +12,12 @@ import { useState, useTransition } from "react";
 
 import { Input } from "@/components/ui/input";
 import LoadingButton from "@/components/LoadingButton";
-import { Metadata } from "next";
 import { PasswordInput } from "@/components/PasswordInput";
 import { logIn } from "./actions";
-import { signUpSchema as logInSchema } from "@/lib/validation";
+import { logInSchema } from "@/lib/validation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-export const metadata: Metadata = {
-  title: "Log In",
-};
 
 const LogInForm = () => {
   const [error, setError] = useState<string>();
@@ -36,7 +31,7 @@ const LogInForm = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof logInSchema>) {
+  async function onSubmit(values: z.infer<typeof logInSchema>) {
     setError(undefined);
     startTransition(async () => {
       const { error } = await logIn(values);
@@ -47,6 +42,7 @@ const LogInForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        {error && <p className="text-center text-destructive">{error}</p>}
         <FormField
           control={form.control}
           name="username"

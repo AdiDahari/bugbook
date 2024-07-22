@@ -11,6 +11,8 @@ import { verify } from "@node-rs/argon2";
 
 export async function logIn(creds: LogInValues): Promise<{ error: string }> {
   try {
+    console.log("logIn");
+
     const { username, password } = logInSchema.parse(creds);
 
     const user = await prisma.user.findFirst({
