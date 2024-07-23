@@ -28,8 +28,11 @@ const PostMoreButton = ({ post, className }: PostMoreButtonProps) => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem onClick={() => setShowDeleteDialog(true)}>
-            <span className="flex items-center gap-3 text-destructive">
+          <DropdownMenuItem
+            onClick={() => setShowDeleteDialog(true)}
+            className="justify-center"
+          >
+            <span className="flex items-center gap-3 text-red-500">
               <Trash2 className="size-4" />
               Delete
             </span>

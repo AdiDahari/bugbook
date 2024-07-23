@@ -1,13 +1,13 @@
 import React, { Suspense } from "react";
 
-import { Button } from "./ui/button";
+import FollowButton from "./FollowButton";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
 import UserAvatar from "./UserAvatar";
 import { formatNumber } from "@/lib/utils";
+import { getUserDataSelect } from "@/lib/types";
 import prisma from "@/lib/prisma";
 import { unstable_cache } from "next/cache";
-import { userDataSelect } from "@/lib/types";
 import { validateRequest } from "@/auth";
 
 const TrendsSidebar = () => {
@@ -31,8 +31,13 @@ async function FollowSuggestions() {
       NOT: {
         id: user.id,
       },
+      followers: {
+        none: {
+          followerId: user.id,
+        },
+      },
     },
-    select: userDataSelect,
+    select: getUserDataSelect(user.id),
     take: 5,
   });
 
@@ -55,7 +60,15 @@ async function FollowSuggestions() {
               </p>
             </div>
           </Link>
-          <Button>Follow</Button>
+          <FollowButton
+            userId={u.id}
+            initialState={{
+              followers: u._count.followers,
+              isFollowedByUser: u.followers.some(
+                ({ followerId }) => followerId === u.id,
+              ),
+            }}
+          />
         </div>
       ))}
     </div>

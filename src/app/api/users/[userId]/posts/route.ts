@@ -4,7 +4,10 @@ import { NextRequest } from "next/server";
 import prisma from "@/lib/prisma";
 import { validateRequest } from "@/auth";
 
-export async function GET(req: NextRequest) {
+export async function GET(
+  req: NextRequest,
+  { params: { userId } }: { params: { userId: string } },
+) {
   try {
     const cursor = req.nextUrl.searchParams.get("cursor") ?? undefined;
     const pageSize = 10;
@@ -16,7 +19,7 @@ export async function GET(req: NextRequest) {
     }
 
     const posts = await prisma.post.findMany({
-      include: getPostDataInclude(user.id),
+      include: getPostDataInclude(userId),
       orderBy: {
         createdAt: "desc",
       },

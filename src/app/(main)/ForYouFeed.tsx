@@ -1,18 +1,15 @@
 "use client";
 
-import { PostData, PostsPage } from "@/lib/types";
-
-import { Button } from "@/components/ui/button";
-import DeletePostDialog from "@/components/posts/DeletePostDialog";
 import InfiniteScrollContainer from "@/components/InfiniteScrollContainer";
 import { Loader2 } from "lucide-react";
 import Post from "@/components/posts/Post";
 import PostsLoadingSkeleton from "@/components/posts/PostsLoadingSkeleton";
+import { PostsPage } from "@/lib/types";
 import React from "react";
 import kyInstance from "@/lib/ky";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-const ForYouField = () => {
+const ForYouFeed = () => {
   const {
     data,
     fetchNextPage,
@@ -66,4 +63,4 @@ const ForYouField = () => {
   );
 };
 
-export default ForYouField;
+export default ForYouFeed;

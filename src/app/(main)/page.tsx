@@ -1,24 +1,27 @@
-import ForYouField from "./ForYouField";
-import { Loader2 } from "lucide-react";
-import Post from "@/components/posts/Post";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+import FollowingFeed from "./FollowingFeed";
+import ForYouFeed from "./ForYouFeed";
 import PostEditor from "@/components/posts/editor/PostEditor";
-import { Suspense } from "react";
 import TrendsSidebar from "@/components/TrendsSidebar";
-import { postDataInclude } from "@/lib/types";
-import prisma from "@/lib/prisma";
 
 export default async function Home() {
-  const posts = await prisma.post.findMany({
-    include: postDataInclude,
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
   return (
     <main className="flex w-full min-w-0 gap-5">
       <div className="w-full min-w-0 space-y-5">
         <PostEditor />
-        <ForYouField />
+        <Tabs defaultValue="for-you">
+          <TabsList>
+            <TabsTrigger value="for-you">For You</TabsTrigger>
+            <TabsTrigger value="following">Following</TabsTrigger>
+          </TabsList>
+          <TabsContent value="for-you">
+            <ForYouFeed />
+          </TabsContent>
+          <TabsContent value="following">
+            <FollowingFeed />
+          </TabsContent>
+        </Tabs>
       </div>
       <TrendsSidebar />
     </main>
