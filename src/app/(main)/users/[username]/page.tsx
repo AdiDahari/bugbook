@@ -4,6 +4,7 @@ import React, { cache, use } from "react";
 import { Button } from "@/components/ui/button";
 import FollowButton from "@/components/FollowButton";
 import FollowerCount from "@/components/FollowerCount";
+import Linkify from "@/components/Linkify";
 import { Metadata } from "next";
 import TrendsSidebar from "@/components/TrendsSidebar";
 import UserAvatar from "@/components/UserAvatar";
@@ -125,9 +126,11 @@ async function UserProfile({ user, loggedInUserId }: UserProfileProps) {
       {user.bio && (
         <>
           <hr />
-          <div className="overflow-hidden whitespace-pre-line break-words">
-            {user.bio}
-          </div>
+          <Linkify>
+            <div className="overflow-hidden whitespace-pre-line break-words">
+              {user.bio}
+            </div>
+          </Linkify>
         </>
       )}
     </div>

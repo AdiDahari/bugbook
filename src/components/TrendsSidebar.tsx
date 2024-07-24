@@ -4,6 +4,7 @@ import FollowButton from "./FollowButton";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
 import UserAvatar from "./UserAvatar";
+import UserTootip from "./UserTootip";
 import { formatNumber } from "@/lib/utils";
 import { getUserDataSelect } from "@/lib/types";
 import prisma from "@/lib/prisma";
@@ -46,20 +47,22 @@ async function FollowSuggestions() {
       <div className="text-xl font-bold">You might like</div>
       {usersToFollow.map((u) => (
         <div key={u.id} className="flex items-center justify-between gap-3">
-          <Link
-            href={`/users/${u.username}`}
-            className="flex items-center gap-3"
-          >
-            <UserAvatar avatarUrl={u.avatarUrl} />
-            <div>
-              <p className="line-clamp-1 break-all font-semibold hover:underline">
-                {u.displayName}
-              </p>
-              <p className="line-clamp-1 break-all text-muted-foreground">
-                @{u.username}
-              </p>
-            </div>
-          </Link>
+          <UserTootip user={u}>
+            <Link
+              href={`/users/${u.username}`}
+              className="flex items-center gap-3"
+            >
+              <UserAvatar avatarUrl={u.avatarUrl} />
+              <div>
+                <p className="line-clamp-1 break-all font-semibold hover:underline">
+                  {u.displayName}
+                </p>
+                <p className="line-clamp-1 break-all text-muted-foreground">
+                  @{u.username}
+                </p>
+              </div>
+            </Link>
+          </UserTootip>
           <FollowButton
             userId={u.id}
             initialState={{
